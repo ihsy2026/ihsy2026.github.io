@@ -129,18 +129,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -170,122 +170,6 @@
 
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://www.ihsy2026.space/2021/10/12/c++%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wyc">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ihsy">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/10/12/c++%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">使用VS2019操作数据库</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-10-12 12:12:23" itemprop="dateCreated datePublished" datetime="2021-10-12T12:12:23+08:00">2021-10-12</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-12-16 13:55:03" itemprop="dateModified" datetime="2021-12-16T13:55:03+08:00">2021-12-16</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E8%AE%BE/" itemprop="url" rel="index"><span itemprop="name">学校课设</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>互联网开发技术这门课要求使用c++做一个学生异步上传论文的系统，要求有登录功能。</p>
-<p>我一直在学习Java开发相关的内容，对c++语言怎么操作数据库比较陌生，网上的资料都比较老，大部分是VS2015，在这里记录一下</p>
-<h3 id="创建项目并配置数据库"><a href="#创建项目并配置数据库" class="headerlink" title="创建项目并配置数据库"></a>创建项目并配置数据库</h3><ul>
-<li><p>配置VS2019</p>
-<ul>
-<li><p>将鼠标放在项目上，右击—&gt;点击属性—&gt;VC++目录—&gt;可执行文件目录，找到数据库安装位置，将include的路径复制到可执行目录中，将数据库安装路径下的lib路径复制到库目录下，将include路径复制到附加包含目录中</p>
-</li>
-<li><p>右击项目-&gt;属性-&gt;链接器-&gt;常规-&gt;附加库目录，将lib路径复制到附加库目录中。</p>
-</li>
-<li><p>右击项目-&gt;属性-&gt;链接器-&gt;输入-&gt;附加依赖项，将libmysql.lib添加到附加依赖项中</p>
-</li>
-</ul>
-</li>
-<li><p>寻找mysql安装位置</p>
-<ul>
-<li>在mysql命令行内输入show visirables like “%char%”</li>
-</ul>
-</li>
-<li><p>把安装目录中lib目录下的libmysql.dll和libmysql.lib复制到C:\Windows\System32中</p>
-</li>
-</ul>
-<h3 id="C-编写连接代码"><a href="#C-编写连接代码" class="headerlink" title="C++编写连接代码"></a>C++编写连接代码</h3><ul>
-<li>头文件</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;WinSock.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mysql.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">MYSQL mysql;  <span class="comment">//mysql连接</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> DataBase_UserName[] = <span class="string">&quot;root&quot;</span>;    <span class="comment">//数据库用户名username</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> DataBase_Password[] = <span class="string">&quot;1234&quot;</span>;   <span class="comment">//数据库密码</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> DataBase_Host[] = <span class="string">&quot;localhost&quot;</span>;  <span class="comment">//数据库连接地址</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> DataBase_Name[] = <span class="string">&quot;student&quot;</span>;  <span class="comment">//database name</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> DataBase_Port = <span class="number">3306</span>;            <span class="comment">//server port</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">ConnectDatabase</span><span class="params">()</span></span>; <span class="comment">//函数申明</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FreeConnect</span><span class="params">()</span></span>;   <span class="comment">//释放资源</span></span><br><span class="line"><span class="keyword">char</span> query[<span class="number">150</span>];    <span class="comment">//查询语句</span></span><br><span class="line">MYSQL_ROW column;   <span class="comment">//数据行的列</span></span><br><span class="line">MYSQL_RES* res;     <span class="comment">//行的一个查询结果集</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">ConnectDatabase</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//初始化mysql</span></span><br><span class="line">	<span class="built_in">mysql_init</span>(&amp;mysql);   <span class="comment">//连接mysql，数据库</span></span><br><span class="line">	<span class="comment">//中间分别是主机，用户名，密码，数据库名，端口号（可以写默认0或者3306等），可以先写成参数再传进去</span></span><br><span class="line">	<span class="keyword">if</span> (!(<span class="built_in">mysql_real_connect</span>(&amp;mysql, DataBase_Host, DataBase_UserName, DataBase_Password, DataBase_Name, DataBase_Port, <span class="literal">NULL</span>, <span class="number">3306</span>)))</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Error connecting to database:&quot;</span> &lt;&lt; <span class="built_in">mysql_error</span>(&amp;mysql) &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//MessageBoxA(NULL,&quot;连接MYSQL数据成功！&quot;,&quot;消息&quot;,MB_OK);</span></span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;连接MYSQL数据库成功！&quot;</span> &lt;&lt; endl;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Connected...&quot;</span> &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//释放资源</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FreeConnect</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//释放资源</span></span><br><span class="line">	<span class="comment">//mysql_free_result(res);</span></span><br><span class="line">	<span class="built_in">mysql_close</span>(&amp;mysql);</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;数据库已释放！&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">InsertData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">sprintf_s</span>(query, <span class="string">&quot;insert into user values (&#x27;a1000&#x27;, &#x27;1234&#x27;);&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">mysql_query</span>(&amp;mysql, query)) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Query failed (%s)\n&quot;</span>, <span class="built_in">mysql_error</span>(&amp;mysql));</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Insert success\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">QueryDatabase</span><span class="params">(string name)</span> </span>&#123;</span><br><span class="line">    string sql = <span class="string">&quot;select * from user where username = &quot;</span><span class="string">&quot;&#x27;&quot;</span> + name + <span class="string">&quot;&#x27;&quot;</span><span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="built_in">strcpy_s</span>(query, sql.<span class="built_in">c_str</span>());</span><br><span class="line">    <span class="comment">//将数据格式化输出到字符串</span></span><br><span class="line">    <span class="comment">//sprintf_s(query, &quot;select * from user where username = &#x27;a1000&#x27;&quot;);</span></span><br><span class="line">    <span class="comment">//设置编码格式</span></span><br><span class="line">    <span class="built_in">mysql_query</span>(&amp;mysql, <span class="string">&quot;set names gbk&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">mysql_query</span>(&amp;mysql, query)) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Query failed (%s)\n&quot;</span>, <span class="built_in">mysql_error</span>(&amp;mysql));</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;query success\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    res = <span class="built_in">mysql_store_result</span>(&amp;mysql);</span><br><span class="line">    <span class="keyword">if</span> (!res) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Couldn&#x27;t get result from %s\n&quot;</span>, <span class="built_in">mysql_error</span>(&amp;mysql));</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;number of dataline returned: %d\n&quot;</span>, <span class="built_in">mysql_affected_rows</span>(&amp;mysql));</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">mysql_affected_rows</span>(&amp;mysql) == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="built_in">mysql_num_fields</span>(res);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//存储字段信息</span></span><br><span class="line">    <span class="keyword">char</span>* str_field[<span class="number">32</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取字段名</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; j; i++) &#123;</span><br><span class="line">        str_field[i] = <span class="built_in">mysql_fetch_field</span>(res)-&gt;name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打印字段</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; j; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%10s\t&quot;</span>, str_field[i]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打印查询结果</span></span><br><span class="line">    <span class="keyword">while</span> (column = <span class="built_in">mysql_fetch_row</span>(res)) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%10s\t%10s\n&quot;</span>, column[<span class="number">0</span>], column[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>源文件</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&quot;SQLManager.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">ConnectDatabase</span>();</span><br><span class="line">    boolean flag = <span class="built_in">QueryDatabase</span>(<span class="string">&quot;a100&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;1111&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;22222&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">FreeConnect</span>(); <span class="comment">//释放资源</span></span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
-<li>使用变量的形式传入到sql语句中花了不少时间才弄明白</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;</span><span class="string">&#x27;&quot; + name + &quot;&#x27;</span><span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>使用这种形式在sql语句中使用变量</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
