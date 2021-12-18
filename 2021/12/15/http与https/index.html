@@ -20,28 +20,28 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"www.ihsy2026.space","root":"/","images":"/images","scheme":"Pisces","version":"8.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="域名购买在freedom这个网站上可以申请最高一年的外网域名使用权，一般为非洲中小国家的顶级域名 国内购买域名的网站很多，我选用的是国外的godaddy，过程比较简单，不再赘述 netlify服务器绑定域名netlify服务器是免费的，如果使用自己购买的域名需要在域名供应商那里将dns服务器改成netlify的服务器">
+<meta name="description" content="HTTP特点 无状态：协议对客户端没有状态存储，对事物处理没有“记忆”能力，比如访问一个网站需要反复进行登录操作  无连接：HTTP&#x2F;1.1之前，由于无状态特点，每次请求需要通过TCP三次握手四次挥手，和服务器重新建立连接。比如某个客户机在短时间多次请求同一个资源，服务器并不能区别是否已经响应过用户的请求，所以每次需要重新响应请求，需要耗费不必要的时间和流量。   加密策略的选择 对称加密比较简单">
 <meta property="og:type" content="article">
-<meta property="og:title" content="给自己的博客网站绑定域名">
-<meta property="og:url" content="https://www.ihsy2026.space/2021/07/13/%E7%BB%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/index.html">
+<meta property="og:title" content="http与https">
+<meta property="og:url" content="https://www.ihsy2026.space/2021/12/15/http%E4%B8%8Ehttps/index.html">
 <meta property="og:site_name" content="ihsy">
-<meta property="og:description" content="域名购买在freedom这个网站上可以申请最高一年的外网域名使用权，一般为非洲中小国家的顶级域名 国内购买域名的网站很多，我选用的是国外的godaddy，过程比较简单，不再赘述 netlify服务器绑定域名netlify服务器是免费的，如果使用自己购买的域名需要在域名供应商那里将dns服务器改成netlify的服务器">
+<meta property="og:description" content="HTTP特点 无状态：协议对客户端没有状态存储，对事物处理没有“记忆”能力，比如访问一个网站需要反复进行登录操作  无连接：HTTP&#x2F;1.1之前，由于无状态特点，每次请求需要通过TCP三次握手四次挥手，和服务器重新建立连接。比如某个客户机在短时间多次请求同一个资源，服务器并不能区别是否已经响应过用户的请求，所以每次需要重新响应请求，需要耗费不必要的时间和流量。   加密策略的选择 对称加密比较简单">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-07-13T06:49:54.000Z">
-<meta property="article:modified_time" content="2021-12-16T08:18:36.738Z">
+<meta property="article:published_time" content="2021-12-15T11:45:35.000Z">
+<meta property="article:modified_time" content="2021-12-18T12:04:06.321Z">
 <meta property="article:author" content="wyc">
-<meta property="article:tag" content="godaddy+netlify绑定域名">
+<meta property="article:tag" content="http与https">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://www.ihsy2026.space/2021/07/13/%E7%BB%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/">
+<link rel="canonical" href="https://www.ihsy2026.space/2021/12/15/http%E4%B8%8Ehttps/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://www.ihsy2026.space/2021/07/13/%E7%BB%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/","path":"2021/07/13/给自己的博客网站绑定域名/","title":"给自己的博客网站绑定域名"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://www.ihsy2026.space/2021/12/15/http%E4%B8%8Ehttps/","path":"2021/12/15/http与https/","title":"http与https"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>给自己的博客网站绑定域名 | ihsy</title>
+<title>http与https | ihsy</title>
   
 
 
@@ -119,7 +119,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E8%B4%AD%E4%B9%B0"><span class="nav-number">1.</span> <span class="nav-text">域名购买</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#netlify%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D"><span class="nav-number">2.</span> <span class="nav-text">netlify服务器绑定域名</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E7%89%B9%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">HTTP特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E7%AD%96%E7%95%A5%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">2.</span> <span class="nav-text">加密策略的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9ACA%E6%9C%BA%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">解决方案：CA机构</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -186,7 +186,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://www.ihsy2026.space/2021/07/13/%E7%BB%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/">
+    <link itemprop="mainEntityOfPage" href="https://www.ihsy2026.space/2021/12/15/http%E4%B8%8Ehttps/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -199,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          给自己的博客网站绑定域名
+          http与https
         </h1>
 
         <div class="post-meta-container">
@@ -210,14 +210,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2021-07-13 14:49:54" itemprop="dateCreated datePublished" datetime="2021-07-13T14:49:54+08:00">2021-07-13</time>
+      <time title="Created: 2021-12-15 19:45:35" itemprop="dateCreated datePublished" datetime="2021-12-15T19:45:35+08:00">2021-12-15</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-12-16 16:18:36" itemprop="dateModified" datetime="2021-12-16T16:18:36+08:00">2021-12-16</time>
+        <time title="Modified: 2021-12-18 20:04:06" itemprop="dateModified" datetime="2021-12-18T20:04:06+08:00">2021-12-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -225,7 +225,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">博客搭建</span></a>
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
         </span>
     </span>
 
@@ -239,9 +239,32 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="域名购买"><a href="#域名购买" class="headerlink" title="域名购买"></a>域名购买</h3><p>在freedom这个网站上可以申请最高一年的外网域名使用权，一般为非洲中小国家的顶级域名</p>
-<p>国内购买域名的网站很多，我选用的是国外的godaddy，过程比较简单，不再赘述</p>
-<h3 id="netlify服务器绑定域名"><a href="#netlify服务器绑定域名" class="headerlink" title="netlify服务器绑定域名"></a>netlify服务器绑定域名</h3><p>netlify服务器是免费的，如果使用自己购买的域名需要在域名供应商那里将dns服务器改成netlify的服务器</p>
+        <h3 id="HTTP特点"><a href="#HTTP特点" class="headerlink" title="HTTP特点"></a>HTTP特点</h3><ul>
+<li><p>无状态：协议对客户端没有状态存储，对事物处理没有“记忆”能力，比如访问一个网站需要反复进行登录操作</p>
+</li>
+<li><p>无连接：HTTP/1.1之前，由于无状态特点，每次请求需要通过TCP三次握手四次挥手，和服务器重新建立连接。比如某个客户机在短时间多次请求同一个资源，服务器并不能区别是否已经响应过用户的请求，所以每次需要重新响应请求，需要耗费不必要的时间和流量。</p>
+</li>
+</ul>
+<h3 id="加密策略的选择"><a href="#加密策略的选择" class="headerlink" title="加密策略的选择"></a>加密策略的选择</h3><ul>
+<li><p>对称加密比较简单，就是客户端和服务器共用同一个密钥，该密钥可以用于加密一段内容，同时也可以用于解密这段内容。对称加密的优点是加解密效率高，但是在安全性方面可能存在一些问题，因为密钥存放在客户端有被窃取的风险。对称加密的代表算法有：AES、DES等。</p>
+</li>
+<li><p> 对称加密则要复杂一点，它将密钥分成了两种：公钥和私钥。公钥通常存放在客户端，私钥通常存放在服务器。使用公钥加密的数据只有用私钥才能解密，反过来使用私钥加密的数据也只有用公钥才能解密。非对称加密的优点是安全性更高，因为客户端发送给服务器的加密信息只有用服务器的私钥才能解密，因此不用担心被别人破解，但缺点是加解密的效率相比于对称加密要差很多。非对称加密的代表算法有：RSA、ElGamal等。</p>
+</li>
+<li><p>我们在传输数据时信息都是明文的，因此很容易出现数据被监听和窃取的情况</p>
+</li>
+<li><p>对称加密效率高，但是浏览器与网站无法商定使用什么样的密钥</p>
+</li>
+<li><p>如果使用非对称加密，也无法避免公钥传输时被恶意篡改</p>
+</li>
+</ul>
+<h3 id="解决方案：CA机构"><a href="#解决方案：CA机构" class="headerlink" title="解决方案：CA机构"></a>解决方案：CA机构</h3><ul>
+<li><p>网站管理员将自己的公钥交给CA机构，CA机构使用自己的私钥对其加密</p>
+</li>
+<li><p>浏览器请求网站时，获得到加密的信息，使用CA机构的公钥进行解密</p>
+</li>
+<li><p>总而言之，https使用的是对称加密与非对称加密相结合的方式，所有传输的内容都经过加密，加密采用对称加密，但对称加密的密钥用服务器方的证书进行了非对称加密。</p>
+</li>
+</ul>
 
     </div>
 
@@ -251,21 +274,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/godaddy-netlify%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/" rel="tag"># godaddy+netlify绑定域名</a>
+              <a href="/tags/http%E4%B8%8Ehttps/" rel="tag"># http与https</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/07/12/Hexo+Github%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" rel="prev" title="Hexo+Github快速搭建个人博客">
-                  <i class="fa fa-chevron-left"></i> Hexo+Github快速搭建个人博客
+                <a href="/2021/10/12/c++%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="使用VS2019操作数据库">
+                  <i class="fa fa-chevron-left"></i> 使用VS2019操作数据库
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/08/23/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F%E6%B1%A0/" rel="next" title="字符串常量池">
-                  字符串常量池 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
