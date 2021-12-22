@@ -129,18 +129,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -170,6 +170,133 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://www.ihsy2026.space/2021/12/20/mysql%E5%85%A8%E5%B1%80%E9%94%81%E3%80%81%E8%A1%A8%E7%BA%A7%E9%94%81%E3%80%81%E8%A1%8C%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wyc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ihsy">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/12/20/mysql%E5%85%A8%E5%B1%80%E9%94%81%E3%80%81%E8%A1%A8%E7%BA%A7%E9%94%81%E3%80%81%E8%A1%8C%E9%94%81/" class="post-title-link" itemprop="url">mysql全局锁、表级锁、行锁</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-12-20 22:16:33" itemprop="dateCreated datePublished" datetime="2021-12-20T22:16:33+08:00">2021-12-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-12-22 22:39:42" itemprop="dateModified" datetime="2021-12-22T22:39:42+08:00">2021-12-22</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="全局锁"><a href="#全局锁" class="headerlink" title="全局锁"></a>全局锁</h3><ul>
+<li><p>Mysql提供了一个加全局锁的方法，命令是FTWRL</p>
+</li>
+<li><p>全局锁的经典使用场景是，做全库逻辑备份，在备份过程中整个库完全处于只读状态</p>
+</li>
+<li><p>这是十分危险的</p>
+</li>
+<li><p>但不加锁会导致视图逻辑不一致</p>
+</li>
+<li><p>拿到一致视图的方法：可重入锁</p>
+</li>
+<li><p>可以使用可重入锁的隔离级别开启一个事务，在此事务下进行操作</p>
+</li>
+<li><p>Mysql的原生引擎MyISAM不支持事务，所以只能使用FTWRL</p>
+</li>
+<li><p>set global readonly=true也是设置全局只读的一种方式，但这种方式影响面更大，发生异常时一直处于只读状态，不建议使用</p>
+</li>
+</ul>
+<h3 id="表级锁"><a href="#表级锁" class="headerlink" title="表级锁"></a>表级锁</h3><h4 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h4><ul>
+<li><p>语法</p>
+<ul>
+<li><p>lock tables … read/write</p>
+</li>
+<li><p>unlock tables</p>
+</li>
+</ul>
+</li>
+<li><p>锁住整个表影响面过大，不建议使用</p>
+</li>
+</ul>
+<h4 id="元数据锁（MDL）"><a href="#元数据锁（MDL）" class="headerlink" title="元数据锁（MDL）"></a>元数据锁（MDL）</h4><ul>
+<li><p>不需要显示使用，访问一个表的时候会自动加上</p>
+</li>
+<li><p>保证读写的正确性</p>
+</li>
+<li><p>当对一个表做增删改查操作的时候，加MDL读锁；当要对表做结构变更操作的时候，加MDL写锁。</p>
+</li>
+<li><p>读锁之间不互斥、读锁与写锁互斥、写锁与写锁互斥</p>
+</li>
+</ul>
+<h3 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h3><ul>
+<li><p>行锁是引擎层自己实现的，并不是所有引擎都支持行锁</p>
+</li>
+<li><p>MyISAM不支持行锁，并发控制只能使用表锁</p>
+</li>
+<li><p>两阶段锁协议：在InnoDB事务中，行锁是需要时加上，但等事务提交才释放</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
