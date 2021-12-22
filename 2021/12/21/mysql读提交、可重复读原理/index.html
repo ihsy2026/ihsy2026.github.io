@@ -20,28 +20,28 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"www.ihsy2026.space","root":"/","images":"/images","scheme":"Pisces","version":"8.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="判断一个链表有环或无环，有环时返回入环节点 快慢指针循环前进  快指针走到null说明无环  两指针相遇说明有环  相遇时，快指针调到开头并变为慢指针，两个指针一起一个一个节点的走,再次相遇即为入环节点   两个无环单链表 两个链表循环一遍，分别记录长度与结尾指针  end1&#x3D;end2说明有公共部分，不想等说明不相交  长的链表先走差值个节点再一起走   一个有环一个无环 不可能相交  两个都有环">
+<meta name="description" content="begin&#x2F;start transaction命令不是一个事务的起点，在他们执行第一个操作InnoDB表的语句，事务才真正启动  如果想马上启动事务可以使用start transaction with consistent snapshot  Mysql里有两个视图概念  一个是view，查询语句定义的虚拟表  另一个是InnoDb在实现MVCC时使用的一致性读视图，即consistent re">
 <meta property="og:type" content="article">
-<meta property="og:title" content="两个有环或无环的单链表的相交问题">
-<meta property="og:url" content="https://www.ihsy2026.space/2021/09/29/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="mysql读提交、可重复读原理">
+<meta property="og:url" content="https://www.ihsy2026.space/2021/12/21/mysql%E8%AF%BB%E6%8F%90%E4%BA%A4%E3%80%81%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="ihsy">
-<meta property="og:description" content="判断一个链表有环或无环，有环时返回入环节点 快慢指针循环前进  快指针走到null说明无环  两指针相遇说明有环  相遇时，快指针调到开头并变为慢指针，两个指针一起一个一个节点的走,再次相遇即为入环节点   两个无环单链表 两个链表循环一遍，分别记录长度与结尾指针  end1&#x3D;end2说明有公共部分，不想等说明不相交  长的链表先走差值个节点再一起走   一个有环一个无环 不可能相交  两个都有环">
+<meta property="og:description" content="begin&#x2F;start transaction命令不是一个事务的起点，在他们执行第一个操作InnoDB表的语句，事务才真正启动  如果想马上启动事务可以使用start transaction with consistent snapshot  Mysql里有两个视图概念  一个是view，查询语句定义的虚拟表  另一个是InnoDb在实现MVCC时使用的一致性读视图，即consistent re">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-09-29T14:03:12.000Z">
-<meta property="article:modified_time" content="2021-12-19T11:58:14.264Z">
+<meta property="article:published_time" content="2021-12-21T14:44:10.000Z">
+<meta property="article:modified_time" content="2021-12-22T15:17:24.531Z">
 <meta property="article:author" content="wyc">
-<meta property="article:tag" content="链表">
+<meta property="article:tag" content="mysql读提交、可重复读">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://www.ihsy2026.space/2021/09/29/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E9%97%AE%E9%A2%98/">
+<link rel="canonical" href="https://www.ihsy2026.space/2021/12/21/mysql%E8%AF%BB%E6%8F%90%E4%BA%A4%E3%80%81%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%8E%9F%E7%90%86/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://www.ihsy2026.space/2021/09/29/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E9%97%AE%E9%A2%98/","path":"2021/09/29/两个链表相交问题/","title":"两个有环或无环的单链表的相交问题"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://www.ihsy2026.space/2021/12/21/mysql%E8%AF%BB%E6%8F%90%E4%BA%A4%E3%80%81%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%8E%9F%E7%90%86/","path":"2021/12/21/mysql读提交、可重复读原理/","title":"mysql读提交、可重复读原理"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>两个有环或无环的单链表的相交问题 | ihsy</title>
+<title>mysql读提交、可重复读原理 | ihsy</title>
   
 
 
@@ -119,7 +119,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E6%9C%89%E7%8E%AF%E6%88%96%E6%97%A0%E7%8E%AF%EF%BC%8C%E6%9C%89%E7%8E%AF%E6%97%B6%E8%BF%94%E5%9B%9E%E5%85%A5%E7%8E%AF%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">判断一个链表有环或无环，有环时返回入环节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E6%97%A0%E7%8E%AF%E5%8D%95%E9%93%BE%E8%A1%A8"><span class="nav-number">1.2.</span> <span class="nav-text">两个无环单链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E6%9C%89%E7%8E%AF%E4%B8%80%E4%B8%AA%E6%97%A0%E7%8E%AF"><span class="nav-number">1.3.</span> <span class="nav-text">一个有环一个无环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E9%83%BD%E6%9C%89%E7%8E%AF%EF%BC%8C%E5%85%A5%E7%8E%AF%E5%9C%A8%E5%90%8C%E4%B8%80%E7%82%B9"><span class="nav-number">1.4.</span> <span class="nav-text">两个都有环，入环在同一点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E9%83%BD%E6%9C%89%E7%8E%AF%EF%BC%8C%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%9A%84%E8%8A%82%E7%82%B9%E5%85%A5%E7%8E%AF"><span class="nav-number">1.5.</span> <span class="nav-text">两个都有环，在不同的节点入环</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E7%85%A7%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">快照原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB"><span class="nav-number">2.</span> <span class="nav-text">可重复读</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -186,7 +186,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://www.ihsy2026.space/2021/09/29/%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="https://www.ihsy2026.space/2021/12/21/mysql%E8%AF%BB%E6%8F%90%E4%BA%A4%E3%80%81%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -199,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          两个有环或无环的单链表的相交问题
+          mysql读提交、可重复读原理
         </h1>
 
         <div class="post-meta-container">
@@ -210,14 +210,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2021-09-29 22:03:12" itemprop="dateCreated datePublished" datetime="2021-09-29T22:03:12+08:00">2021-09-29</time>
+      <time title="Created: 2021-12-21 22:44:10" itemprop="dateCreated datePublished" datetime="2021-12-21T22:44:10+08:00">2021-12-21</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-12-19 19:58:14" itemprop="dateModified" datetime="2021-12-19T19:58:14+08:00">2021-12-19</time>
+        <time title="Modified: 2021-12-22 23:17:24" itemprop="dateModified" datetime="2021-12-22T23:17:24+08:00">2021-12-22</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -225,7 +225,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+          <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
         </span>
     </span>
 
@@ -239,35 +239,65 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id><a href="#" class="headerlink" title></a></h2><h3 id="判断一个链表有环或无环，有环时返回入环节点"><a href="#判断一个链表有环或无环，有环时返回入环节点" class="headerlink" title="判断一个链表有环或无环，有环时返回入环节点"></a>判断一个链表有环或无环，有环时返回入环节点</h3><ul>
-<li><p>快慢指针循环前进</p>
+        <ul>
+<li><p>begin/start transaction命令不是一个事务的起点，在他们执行第一个操作InnoDB表的语句，事务才真正启动</p>
 </li>
-<li><p>快指针走到null说明无环</p>
+<li><p>如果想马上启动事务可以使用start transaction with consistent snapshot</p>
 </li>
-<li><p>两指针相遇说明有环</p>
+<li><p>Mysql里有两个视图概念</p>
+<ul>
+<li><p>一个是view，查询语句定义的虚拟表</p>
 </li>
-<li><p>相遇时，快指针调到开头并变为慢指针，两个指针一起一个一个节点的走,再次相遇即为入环节点</p>
-</li>
-</ul>
-<h3 id="两个无环单链表"><a href="#两个无环单链表" class="headerlink" title="两个无环单链表"></a>两个无环单链表</h3><ul>
-<li><p>两个链表循环一遍，分别记录长度与结尾指针</p>
-</li>
-<li><p>end1=end2说明有公共部分，不想等说明不相交</p>
-</li>
-<li><p>长的链表先走差值个节点再一起走</p>
+<li><p>另一个是InnoDb在实现MVCC时使用的一致性读视图，即consistent read view（快照），用于支持读提交和可重复读隔离级别的实现</p>
 </li>
 </ul>
-<h3 id="一个有环一个无环"><a href="#一个有环一个无环" class="headerlink" title="一个有环一个无环"></a>一个有环一个无环</h3><ul>
-<li>不可能相交</li>
-</ul>
-<h3 id="两个都有环，入环在同一点"><a href="#两个都有环，入环在同一点" class="headerlink" title="两个都有环，入环在同一点"></a>两个都有环，入环在同一点</h3><ul>
-<li><p>loop1=loop2</p>
-</li>
-<li><p>以loop为终点，变为两个无环链表相交求交点</p>
 </li>
 </ul>
-<h3 id="两个都有环，在不同的节点入环"><a href="#两个都有环，在不同的节点入环" class="headerlink" title="两个都有环，在不同的节点入环"></a>两个都有环，在不同的节点入环</h3><ul>
-<li>loop1往下转，能遇到loop2为此情况，不能为两个都有环，但不相交</li>
+<h3 id="快照原理"><a href="#快照原理" class="headerlink" title="快照原理"></a>快照原理</h3><ul>
+<li><p>每个事务有唯一的事务ID，按照申请顺序严格递增</p>
+</li>
+<li><p>数据是有多个版本的，每次事务更新数据，都会生成一个新的数据版本，并将transaction id赋值给这个数据版本的事务ID，记为row trx_id</p>
+</li>
+<li><p>语句更新会生成回滚日志（undo log）</p>
+</li>
+<li><p>每个版本的数据不是物理上真实存在，是根据当前版本undo log计算出来的</p>
+</li>
+</ul>
+<h3 id="可重复读"><a href="#可重复读" class="headerlink" title="可重复读"></a>可重复读</h3><ul>
+<li><p>一个事务在启动时声明承认在该事务启动之前生成的数据版本，不承认启动以后生成的数据版本，承认自己生成的数据版本</p>
+</li>
+<li><p>实现</p>
+<ul>
+<li><p>创建一个数组，保存该事务启动时正在活跃的所有的事务（启动但未提交）集合</p>
+</li>
+<li><p>以该数组最小的事务ID为低水位，最大的为高水位</p>
+</li>
+<li><p>据此将row trx_id分为三部分</p>
+<ul>
+<li><p>已提交事务（低水位以下） 数据可见</p>
+</li>
+<li><p>未提交事务（低水位、高水位之间）</p>
+<ul>
+<li><p>在数组中，说明已启动未提交，不可见</p>
+</li>
+<li><p>不在数组中 说明已经提交 可见</p>
+</li>
+</ul>
+</li>
+<li><p>未开始事务 不可见</p>
+</li>
+</ul>
+</li>
+<li><p>更新数据都是先读后写，而这个读，只能读当前的值</p>
+</li>
+</ul>
+</li>
+<li><p>可重复读隔离级别下，更新数据只能用当前读，如果当前记录的行锁被占用的话，就需要进入锁等待</p>
+</li>
+<li><p>读提交的主要区别是读提交每个语句执行前都会生成一个新的视图</p>
+</li>
+<li><p>对于读提交，查询只承认在语句启动前就已经提交完成的数据</p>
+</li>
 </ul>
 
     </div>
@@ -278,21 +308,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag"># 链表</a>
+              <a href="/tags/mysql%E8%AF%BB%E6%8F%90%E4%BA%A4%E3%80%81%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/" rel="tag"># mysql读提交、可重复读</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/08/23/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F%E6%B1%A0/" rel="prev" title="字符串常量池">
-                  <i class="fa fa-chevron-left"></i> 字符串常量池
+                <a href="/2021/12/20/mysql%E5%85%A8%E5%B1%80%E9%94%81%E3%80%81%E8%A1%A8%E7%BA%A7%E9%94%81%E3%80%81%E8%A1%8C%E9%94%81/" rel="prev" title="mysql全局锁、表级锁、行锁">
+                  <i class="fa fa-chevron-left"></i> mysql全局锁、表级锁、行锁
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/10/12/c++%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="使用VS2019操作数据库">
-                  使用VS2019操作数据库 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

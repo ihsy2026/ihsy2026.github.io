@@ -129,7 +129,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -140,7 +140,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -170,6 +170,145 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://www.ihsy2026.space/2021/12/21/mysql%E8%AF%BB%E6%8F%90%E4%BA%A4%E3%80%81%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wyc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ihsy">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/12/21/mysql%E8%AF%BB%E6%8F%90%E4%BA%A4%E3%80%81%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">mysql读提交、可重复读原理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-12-21 22:44:10" itemprop="dateCreated datePublished" datetime="2021-12-21T22:44:10+08:00">2021-12-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-12-22 23:17:24" itemprop="dateModified" datetime="2021-12-22T23:17:24+08:00">2021-12-22</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li><p>begin/start transaction命令不是一个事务的起点，在他们执行第一个操作InnoDB表的语句，事务才真正启动</p>
+</li>
+<li><p>如果想马上启动事务可以使用start transaction with consistent snapshot</p>
+</li>
+<li><p>Mysql里有两个视图概念</p>
+<ul>
+<li><p>一个是view，查询语句定义的虚拟表</p>
+</li>
+<li><p>另一个是InnoDb在实现MVCC时使用的一致性读视图，即consistent read view（快照），用于支持读提交和可重复读隔离级别的实现</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="快照原理"><a href="#快照原理" class="headerlink" title="快照原理"></a>快照原理</h3><ul>
+<li><p>每个事务有唯一的事务ID，按照申请顺序严格递增</p>
+</li>
+<li><p>数据是有多个版本的，每次事务更新数据，都会生成一个新的数据版本，并将transaction id赋值给这个数据版本的事务ID，记为row trx_id</p>
+</li>
+<li><p>语句更新会生成回滚日志（undo log）</p>
+</li>
+<li><p>每个版本的数据不是物理上真实存在，是根据当前版本undo log计算出来的</p>
+</li>
+</ul>
+<h3 id="可重复读"><a href="#可重复读" class="headerlink" title="可重复读"></a>可重复读</h3><ul>
+<li><p>一个事务在启动时声明承认在该事务启动之前生成的数据版本，不承认启动以后生成的数据版本，承认自己生成的数据版本</p>
+</li>
+<li><p>实现</p>
+<ul>
+<li><p>创建一个数组，保存该事务启动时正在活跃的所有的事务（启动但未提交）集合</p>
+</li>
+<li><p>以该数组最小的事务ID为低水位，最大的为高水位</p>
+</li>
+<li><p>据此将row trx_id分为三部分</p>
+<ul>
+<li><p>已提交事务（低水位以下） 数据可见</p>
+</li>
+<li><p>未提交事务（低水位、高水位之间）</p>
+<ul>
+<li><p>在数组中，说明已启动未提交，不可见</p>
+</li>
+<li><p>不在数组中 说明已经提交 可见</p>
+</li>
+</ul>
+</li>
+<li><p>未开始事务 不可见</p>
+</li>
+</ul>
+</li>
+<li><p>更新数据都是先读后写，而这个读，只能读当前的值</p>
+</li>
+</ul>
+</li>
+<li><p>可重复读隔离级别下，更新数据只能用当前读，如果当前记录的行锁被占用的话，就需要进入锁等待</p>
+</li>
+<li><p>读提交的主要区别是读提交每个语句执行前都会生成一个新的视图</p>
+</li>
+<li><p>对于读提交，查询只承认在语句启动前就已经提交完成的数据</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
